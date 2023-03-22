@@ -39,11 +39,6 @@ const addBookHandler = (request, h) => {
     updateAt,
   };
   books.push(newBook);
-  // const isFailName = books.filter((book) => book.name);
-  // const isFailPagecount =
-  //   books.filter((book) => book.pageCount) <=
-  //   books.filter((book) => book.readPage);
-  // const isFailReadcount = books.filter((book) => book.readPage);
 
   if (name === undefined) {
     const response = h.response({
