@@ -39,14 +39,13 @@ const addBookHandler = (request, h) => {
     updateAt,
   };
   books.push(newBook);
-
-  const isFailName = books.filter((book) => book.name) == '';
-  const isFailPagecount =
-    books.filter((book) => book.pageCount) <=
-    books.filter((book) => book.readPage);
+  // const isFailName = books.filter((book) => book.name);
+  // const isFailPagecount =
+  //   books.filter((book) => book.pageCount) <=
+  //   books.filter((book) => book.readPage);
   // const isFailReadcount = books.filter((book) => book.readPage);
 
-  if (isFailName) {
+  if (name === undefined) {
     const response = h.response({
       status: 'fail',
       message: 'Gagal menambahkan buku. Mohon isi nama buku',
@@ -54,7 +53,7 @@ const addBookHandler = (request, h) => {
     response.code(400);
     return response;
   }
-  if (isFailPagecount) {
+  if (pageCount < readPage) {
     const response = h.response({
       status: 'fail',
       message:
