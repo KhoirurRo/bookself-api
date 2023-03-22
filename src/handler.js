@@ -38,7 +38,6 @@ const addBookHandler = (request, h) => {
     insertedAt,
     updateAt,
   };
-  books.push(newBook);
 
   if (name === undefined) {
     const response = h.response({
@@ -64,10 +63,28 @@ const addBookHandler = (request, h) => {
       bookId: id,
     },
   });
+  books.push(newBook);
   response.code(201);
+  return response;
+};
+
+const getAllBooksHandler = (request, h) => {
+  let varBooks = books;
+  const response = h.response({
+    status: 'success',
+    data: {
+      books: varBooks.map((item) => ({
+        id: item.id,
+        name: item.name,
+        publisher: item.publisher,
+      })),
+    },
+  });
+  response.code(200);
   return response;
 };
 
 module.exports = {
   addBookHandler,
+  getAllBooksHandler,
 };
