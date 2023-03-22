@@ -69,11 +69,10 @@ const addBookHandler = (request, h) => {
 };
 
 const getAllBooksHandler = (request, h) => {
-  let varBooks = books;
   const response = h.response({
     status: 'success',
     data: {
-      books: varBooks.map((item) => ({
+      books: books.map((item) => ({
         id: item.id,
         name: item.name,
         publisher: item.publisher,
