@@ -15,14 +15,8 @@ const addBookHandler = (request, h) => {
 
   const id = nanoid(16);
   const insertedAt = new Date().toISOString();
-  const updateAt = insertedAt;
-  const finished = () => {
-    if (pageCount === readPage) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const updatedAt = insertedAt;
+  const finished = pageCount === readPage;
 
   const newBook = {
     id,
@@ -36,7 +30,7 @@ const addBookHandler = (request, h) => {
     finished,
     reading,
     insertedAt,
-    updateAt,
+    updatedAt,
   };
 
   if (name === undefined) {
@@ -83,7 +77,30 @@ const getAllBooksHandler = (request, h) => {
   return response;
 };
 
+const getBooksById = (request, h) => {
+  const { bookId } = request.params;
+
+  const book = books.filter((item) => item.id === bookId)[0];
+
+  if (book !== undefined) {
+    return {
+      status: 'success',
+      data: {
+        book,
+      },
+    };
+  }
+
+  const response = h.response({
+    status: 'fail',
+    message: 'Buku tidak ditemukan',
+  });
+  response.code(404);
+  return response;
+};
+
 module.exports = {
   addBookHandler,
   getAllBooksHandler,
+  getBooksById,
 };
